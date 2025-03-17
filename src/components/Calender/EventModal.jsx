@@ -1,37 +1,35 @@
-import React, { useState } from 'react';
-import { X } from 'lucide-react';
-import moment from 'moment';
+import React, { useState } from "react";
+import { X } from "lucide-react";
+import moment from "moment";
 
 const EventModal = ({ isOpen, onClose, onSave, initialStart, initialEnd }) => {
-    const defaultStart = moment(initialStart).set({
-        hour: moment().hour(),
-        minute: moment().minute(),
-    });
+  const defaultStart = moment(initialStart).set({
+    hour: moment().hour(),
+    minute: moment().minute(),
+  });
 
-    const defaultEnd = moment(defaultStart).add(1, 'hour');
-  
-    const [formData, setFormData] = useState({
-    title: '',
-    category: 'default',
-    start: moment(initialStart).format('YYYY-MM-DDTHH:mm'),
-    end: moment(initialEnd).format('YYYY-MM-DDTHH:mm'),
+  const defaultEnd = moment(defaultStart).add(1, "hour");
+
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "default",
+    start: moment(initialStart).format("YYYY-MM-DDTHH:mm"),
+    end: moment(initialEnd).format("YYYY-MM-DDTHH:mm"),
   });
 
   useEffect(() => {
-    // Update state when the selected date changes
     const updatedStart = moment(initialStart).set({
       hour: moment().hour(),
       minute: moment().minute(),
     });
-    const updatedEnd = moment(updatedStart).add(1, 'hour');
+    const updatedEnd = moment(updatedStart).add(1, "hour");
 
     setFormData({
       ...formData,
-      start: updatedStart.format('YYYY-MM-DDTHH:mm'),
-      end: updatedEnd.format('YYYY-MM-DDTHH:mm'),
+      start: updatedStart.format("YYYY-MM-DDTHH:mm"),
+      end: updatedEnd.format("YYYY-MM-DDTHH:mm"),
     });
   }, [initialStart]);
-  
 
   if (!isOpen) return null;
 
@@ -41,7 +39,7 @@ const EventModal = ({ isOpen, onClose, onSave, initialStart, initialEnd }) => {
       title: formData.title,
       start: new Date(formData.start),
       end: new Date(formData.end),
-      category: formData.category
+      category: formData.category,
     });
     onClose();
   };
@@ -55,14 +53,19 @@ const EventModal = ({ isOpen, onClose, onSave, initialStart, initialEnd }) => {
       <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-800">Add New Event</h2>
-          <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
+          <button
+            onClick={onClose}
+            className="text-gray-600 hover:text-gray-800"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Title
+            </label>
             <input
               type="text"
               name="title"
@@ -74,7 +77,9 @@ const EventModal = ({ isOpen, onClose, onSave, initialStart, initialEnd }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Category
+            </label>
             <select
               name="category"
               value={formData.category}
@@ -89,7 +94,9 @@ const EventModal = ({ isOpen, onClose, onSave, initialStart, initialEnd }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Start Time</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Start Time
+            </label>
             <input
               type="datetime-local"
               name="start"
@@ -101,7 +108,9 @@ const EventModal = ({ isOpen, onClose, onSave, initialStart, initialEnd }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">End Time</label>
+            <label className="block text-sm font-medium text-gray-700">
+              End Time
+            </label>
             <input
               type="datetime-local"
               name="end"
